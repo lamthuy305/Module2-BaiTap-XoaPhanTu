@@ -5,45 +5,39 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        int[] arr = {1, 2, 3, 4, 5, 6, 7, 8, 9};
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Nhâp số muốn tìm kiếm: ");
+        System.out.print("Nhập độ dài mảng: ");
+        int length = scanner.nextInt();
+        int [] arr = new int[length];
+        for (int i = 0; i < arr.length; i++) {
+            System.out.print("Nhập số ở vị trí thứ " + i + " :\t");
+            arr[i] = scanner.nextInt();
+        }
+        System.out.println("Nhập số muốn xóa: ");
         int number = scanner.nextInt();
-
-            int index = viTri(arr, number);
-            if (index != -1) {
-                int[] newArr = xoaPhanTu(arr, index);
-                System.out.print("Mảng sau khi xóa số " + number + " là: " + "\t");
-                for (int i = 0; i < newArr.length; i++) {
-                    System.out.print(newArr[i] + "\t");
-                }
-            } else {
-            System.out.println("Số tìm kiếm không có trong mảng ");
-                for (int i = 0; i < arr.length; i++) {
-                    System.out.print(arr[i] + "\t");
-                }
-            }
+        int [] newArr = xoaPhanTuMang(arr, number);
+        System.out.print("Mảng mới sau khi xóa là:\t" );
+        for (int i: newArr) {
+            System.out.print(i + "\t");
         }
 
-    public static int viTri(int[] array, int num) {
-        int index = -1;
-        for (int i = 0; i < array.length; i++) {
-            if (num == array[i]) {
-                index = i;
-            }
-        }
-        return index;
     }
 
-    public static int[] xoaPhanTu(int[] array, int index) {
-        int newArray[] = new int[array.length - 1];
-        for (int j = index; j < array.length - 1; j++) {
-            array[j] = array[j + 1];
+    public static int[] xoaPhanTuMang(int[] array, int num) {
+        int count = 0;
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == num) {
+                count++;
+            }
         }
-        for (int i = 0; i < array.length - 1; i++) {
-            newArray[i] = array[i];
+        int [] newArray = new int[array.length - count];
+        int index = -1;
+        for (int j = 0; j < array.length; j++) {
+            if (array[j] != num) {
+                index++;
+                newArray[index] = array[j];
+            }
         }
-
         return newArray;
     }
 }
